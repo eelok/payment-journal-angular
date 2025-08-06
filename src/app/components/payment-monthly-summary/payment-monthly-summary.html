@@ -1,0 +1,19 @@
+<h3>Monthly Sumary: </h3>
+<div *ngIf="errorMessage"
+     style="color: red; padding: 10px; border: 1px solid red;">
+    <p>Error: {{errorMessage}}</p>
+</div>
+<table>
+    <thead>
+        <tr>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor ="let summary of monthlySummaries">
+            <td>{{summary.yearMonth}}</td>
+            <td>{{summary.totalAmount}}</td>
+        </tr>
+    </tbody>
+
+</table>
