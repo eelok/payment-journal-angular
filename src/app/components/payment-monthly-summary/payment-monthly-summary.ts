@@ -4,7 +4,7 @@ import { MonthlySummary } from '../../models/MonthlySummary';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-payment-monthly-sumary',
+  selector: 'app-payment-monthly-summary',
   imports: [CommonModule],
   templateUrl: './payment-monthly-summary.html',
   styleUrl: './payment-monthly-summary.css'
