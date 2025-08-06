@@ -14,6 +14,11 @@ export class PaymentMonthlySummary implements OnInit {
   monthlySummaries: MonthlySummary[] = [];
   errorMessage = "";
 
+  tableColumns = [
+    {property: "yearMonth", label: "Year-Month"},
+    {property: "totalAmount", label: "Total Paid"},
+  ]
+
   constructor(
     private paymentService: PaymentService
   ){}
@@ -21,6 +26,7 @@ export class PaymentMonthlySummary implements OnInit {
   ngOnInit(): void{
       this.paymentService.getPaymentMonthlySummary().subscribe({
         next: (monthlySummary) => {
+          console.log(monthlySummary)
           this.monthlySummaries = monthlySummary;
         },
         error: (error) => {
