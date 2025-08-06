@@ -17,12 +17,18 @@
         </tr>
     </thead>
     <tbody>
-        @for (summary of monthlySummaries; track summary) {
-            <tr>
-                <td>{{summary.yearMonth}}</td>
-                <td>{{summary.totalAmount}}</td>
-            </tr>
-        }
+        <tr *ngFor="let summary of monthlySummaries">
+            <td>{{summary.yearMonth}}</td>
+            <td>
+                <div *ngFor="let payment of summary.allPaymentsInMonth">
+                        {{payment.amount}}
+                </div>
+            </td>
+            <td>
+                {{summary.paymentCount}}
+            </td>
+            <td>{{summary.totalAmount}}</td>
+        </tr>
     </tbody>
 
 </table>

@@ -18,6 +18,8 @@ export class PaymentMonthlySummary implements OnInit {
 
   tableColumns = [
     {property: "yearMonth", label: "Year - Month"},
+    {propery: "allPaymentsInMonth", label: "Payment"},
+    {property: "paymentCount", label: "Number of Payments"},
     {property: "totalAmount", label: "Total Paid"},
   ]
 
@@ -26,24 +28,16 @@ export class PaymentMonthlySummary implements OnInit {
   ){}
 
   ngOnInit(): void{
-
     this.isLoading = true;
     this.paymentService.getPaymentMonthlySummary().subscribe({
       next: (monthlySummaries) => {
-        console.log('Data received:', monthlySummaries);
-        console.log('Array length:', monthlySummaries.length); // Add this
-        console.log('First item:', monthlySummaries[0]);
         this.monthlySummaries = monthlySummaries;
-        console.log('tim', this.monthlySummaries);
         this.isLoading = false;
       },
       error: (error) => {
         this.errorMessage = error.error?.errorMessage || "api is failed"
         this.isLoading = false;
       },
-      complete: () => {
-        console.log('🏁 HTTP request completed');
-      }
     });
   }
 }
