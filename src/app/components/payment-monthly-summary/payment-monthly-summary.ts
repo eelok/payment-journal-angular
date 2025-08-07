@@ -4,17 +4,18 @@ import { MonthlySummary } from '../../models/MonthlySummary';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentRequest } from '../../models/PaymentRequest';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validator } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-monthly-summary',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './payment-monthly-summary.html',
   styleUrl: './payment-monthly-summary.css'
 })
 export class PaymentMonthlySummary implements OnInit {
 
-  paymentAmount: number = 0;
+  paymentForm!: FormGroup;
 
 
   monthlySummaries: MonthlySummary[] = [];
@@ -31,25 +32,31 @@ export class PaymentMonthlySummary implements OnInit {
   constructor(
     private paymentService: PaymentService,
     private route: ActivatedRoute,
+    private fb: FormBuilder
   ){}
 
+  private initializedform(): void {
+    this.paymentForm = this.fb.group({
+      paymentAmount: ['', [Validators.required, Validators.min(0.01)]]
+    })
+  }
+
   addPayment(){
-    if(!this.paymentAmount){
-      this.errorMessage = "inser payment amount";
-      return;
-    }
-    
-    if(isNaN(this.paymentAmount)){
-      this.errorMessage = "payment amount must be a number";
+    if(this.paymentForm.invalid){
+      this.errorMessage = "Error in input";
       return
     }
-
-    this.paymentService.addPayment({
-      amount: this.paymentAmount, paymentType: "REGULAR"
-    }).subscribe({
+    
+    const paymentAmount = this.paymentForm.value;
+    console.log("this.paymentAmount", paymentAmount)
+    const payload: PaymentRequest = {
+      amount: Number(paymentAmount), 
+      paymentType: "REGULAR"
+    }
+    this.paymentService.addPayment(payload).subscribe({
       next: (response) => {
           console.log("response", response);
-          this.paymentAmount = 0;
+          // this.paymentForm.value = 0,
           this.errorMessage = "";
           this.refreshMonthlySummary();
       },
@@ -62,6 +69,9 @@ export class PaymentMonthlySummary implements OnInit {
   }
 
   ngOnInit(): void{
+    this.initializedform();
+    console.log("Form created:", this.paymentForm);
+    console.log("Form value after creatin: ", this.paymentForm.value);
     this.refreshMonthlySummary();
   }
 

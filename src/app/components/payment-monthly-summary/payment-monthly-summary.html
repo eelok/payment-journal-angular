@@ -1,12 +1,12 @@
 <h3>Payment:</h3>
-<form (ngSubmit)="addPayment()">
+<form [formGroup]="paymentForm" (ngSubmit)="addPayment()">
     <label for="paymentAmount">
         Payment Amount:
         <input 
             id="paymentAmount" 
             type="number" 
             name="paymentAmount"
-            [(ngModel)]="paymentAmount"
+            formControlName="paymentAmount"
         />
     </label> 
      <button type="submit">Add</button>   
