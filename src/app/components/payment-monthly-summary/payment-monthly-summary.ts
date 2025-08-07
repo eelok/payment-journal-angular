@@ -47,8 +47,8 @@ export class PaymentMonthlySummary implements OnInit {
       return
     }
     
-    const paymentAmount = this.paymentForm.value;
-    console.log("this.paymentAmount", paymentAmount)
+    const paymentAmount = this.paymentForm.value.paymentAmount;
+    
     const payload: PaymentRequest = {
       amount: Number(paymentAmount), 
       paymentType: "REGULAR"
