@@ -2,15 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../services/payment-service';
 import { MonthlySummary } from '../../models/MonthlySummary';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { PaymentRequest } from '../../models/PaymentRequest';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-monthly-summary',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './payment-monthly-summary.html',
   styleUrl: './payment-monthly-summary.css'
 })
 export class PaymentMonthlySummary implements OnInit {
+
+  paymentAmount: number = 0;
+
 
   monthlySummaries: MonthlySummary[] = [];
   errorMessage = "";
@@ -25,7 +30,35 @@ export class PaymentMonthlySummary implements OnInit {
 
   constructor(
     private paymentService: PaymentService,
+    private route: ActivatedRoute,
   ){}
+
+  addPayment(){
+    if(!this.paymentAmount){
+      this.errorMessage = "inser payment amount";
+      return;
+    }
+    
+    if(isNaN(this.paymentAmount)){
+      this.errorMessage = "payment amount must be a number";
+      return
+    }
+
+    this.paymentService.addPayment({
+      amount: this.paymentAmount, paymentType: "REGULAR"
+    }).subscribe({
+      next: (response) => {
+          console.log("response", response);
+          this.paymentAmount = 0;
+          this.errorMessage = "";
+      },
+      error: (error) => {
+        console.log("Error message:", error.error.message);
+        this.errorMessage = error.error?.message || "api is failed"
+      }
+    })
+
+  }
 
   ngOnInit(): void{
     this.isLoading = true;

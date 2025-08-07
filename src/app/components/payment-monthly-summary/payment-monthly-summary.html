@@ -1,3 +1,18 @@
+<h3>Payment:</h3>
+<form (ngSubmit)="addPayment()">
+    <label for="paymentAmount">
+        Payment Amount:
+        <input 
+            id="paymentAmount" 
+            type="number" 
+            name="paymentAmount"
+            [(ngModel)]="paymentAmount"
+        />
+    </label> 
+     <button type="submit">Add</button>   
+</form>
+
+
 <h3>Monthly Summary: </h3>
 <div *ngIf="errorMessage"
      style="color: red; padding: 10px; border: 1px solid red;">
@@ -12,8 +27,6 @@
     <thead>
         <tr>
             <th  *ngFor="let column of tableColumns">{{column.label}}</th>
-             <!-- <th>Year Month</th>
-             <th>Total Paid</th> -->
         </tr>
     </thead>
     <tbody>

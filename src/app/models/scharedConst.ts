@@ -1,0 +1,1 @@
+export const paymentType = [ "REGULAR", "EXPENSE",  "DEPOSIT"]
