@@ -51,6 +51,7 @@ export class PaymentMonthlySummary implements OnInit {
           console.log("response", response);
           this.paymentAmount = 0;
           this.errorMessage = "";
+          this.refreshMonthlySummary();
       },
       error: (error) => {
         console.log("Error message:", error.error.message);
@@ -61,6 +62,10 @@ export class PaymentMonthlySummary implements OnInit {
   }
 
   ngOnInit(): void{
+    this.refreshMonthlySummary();
+  }
+
+  private refreshMonthlySummary(): void{
     this.isLoading = true;
     this.paymentService.getPaymentMonthlySummary().subscribe({
       next: (monthlySummaries) => {
