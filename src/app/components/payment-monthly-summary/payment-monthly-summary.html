@@ -9,6 +9,22 @@
             formControlName="paymentAmount"
         />
     </label> 
+    <label for="paymentType">
+        Payment Type:
+        <select
+            id="paymentType"
+            name="paymentType"   
+            formControlName="paymentType" 
+        >
+            <option value="">Select Payment Type</option>
+            <option
+                *ngFor="let paymentType of availabelPaymentType"
+                [value]="paymentType"
+            >
+            {{paymentType}}
+            </option>
+        </select>
+    </label>
      <button type="submit">Add</button>   
 </form>
 

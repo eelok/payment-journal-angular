@@ -4,8 +4,9 @@ import { MonthlySummary } from '../../models/MonthlySummary';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentRequest } from '../../models/PaymentRequest';
-import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup, Validator } from '@angular/forms';
+import { paymentType } from '../../models/scharedConst';
 
 @Component({
   selector: 'app-payment-monthly-summary',
@@ -16,7 +17,8 @@ import { FormBuilder, FormGroup, Validator } from '@angular/forms';
 export class PaymentMonthlySummary implements OnInit {
 
   paymentForm!: FormGroup;
-
+  selectedPaymentType: string = "";
+  availabelPaymentType = paymentType;
 
   monthlySummaries: MonthlySummary[] = [];
   errorMessage = "";
@@ -35,9 +37,14 @@ export class PaymentMonthlySummary implements OnInit {
     private fb: FormBuilder
   ){}
 
+  private validatePaymantType(control: AbstractControl): ValidationErrors | null{
+    return paymentType.includes(control.value) ? null : {invalidPaymentType: true};
+  }
+
   private initializedform(): void {
     this.paymentForm = this.fb.group({
-      paymentAmount: ['', [Validators.required, Validators.min(0.01)]]
+      paymentAmount: ['', [Validators.required, Validators.min(0.01)]],
+      paymentType: ['', [Validators.required, this.validatePaymantType.bind(this)]]
     })
   }
 
@@ -48,10 +55,12 @@ export class PaymentMonthlySummary implements OnInit {
     }
     
     const paymentAmount = this.paymentForm.value.paymentAmount;
+    const selectedPaymentType = this.paymentForm.value.paymentType;
+  
     
     const payload: PaymentRequest = {
       amount: Number(paymentAmount), 
-      paymentType: "REGULAR"
+      paymentType: selectedPaymentType
     }
     this.paymentService.addPayment(payload).subscribe({
       next: (response) => {
