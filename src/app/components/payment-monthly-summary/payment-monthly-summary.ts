@@ -37,20 +37,50 @@ export class PaymentMonthlySummary implements OnInit {
     private fb: FormBuilder
   ){}
 
-  private validatePaymantType(control: AbstractControl): ValidationErrors | null{
-    return paymentType.includes(control.value) ? null : {invalidPaymentType: true};
+  private validatePaymentType(control: AbstractControl): ValidationErrors | null {
+    if(!paymentType.includes(control.value)){
+      return { invalidPaymentType: true }
+    }
+    return null;
+  }
+
+  getPaymentTypeError(): string {
+      const control = this.paymentForm.get('paymentType');
+      if(control?.errors && control?.touched){
+        if(control.errors['required']){
+            return 'Payment type is required';
+        }
+        if(control.errors['invalidPaymentType']){
+            return 'Invalid payment type';
+        }
+      }
+      return '';
+  }
+
+  getPaymentAmountError(): string {
+    const control = this.paymentForm.get('paymentAmount');
+    if(control?.errors && control?.touched){
+      if(control.errors['required']){
+        return 'Payment amount is required';
+      }
+      if(control.errors['min']){
+        return 'Payment amount must be greater than 0'
+      }
+    }
+    return '';
   }
 
   private initializedform(): void {
     this.paymentForm = this.fb.group({
       paymentAmount: ['', [Validators.required, Validators.min(0.01)]],
-      paymentType: ['', [Validators.required, this.validatePaymantType.bind(this)]]
+      paymentType: ['', [Validators.required, this.validatePaymentType.bind(this)]]
     })
   }
 
   addPayment(){
     if(this.paymentForm.invalid){
-      this.errorMessage = "Error in input";
+      this.paymentForm.markAllAsTouched();
+      // this.errorMessage = "Error in input";
       return
     }
     
@@ -65,8 +95,8 @@ export class PaymentMonthlySummary implements OnInit {
     this.paymentService.addPayment(payload).subscribe({
       next: (response) => {
           console.log("response", response);
-          // this.paymentForm.value = 0,
           this.errorMessage = "";
+          this.paymentForm.reset();
           this.refreshMonthlySummary();
       },
       error: (error) => {

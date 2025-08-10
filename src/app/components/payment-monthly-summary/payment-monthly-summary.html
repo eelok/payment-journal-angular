@@ -9,6 +9,9 @@
             formControlName="paymentAmount"
         />
     </label> 
+    <div *ngIf="getPaymentAmountError()" class="error">
+        {{getPaymentAmountError()}}
+    </div>
     <label for="paymentType">
         Payment Type:
         <select
@@ -24,6 +27,10 @@
             {{paymentType}}
             </option>
         </select>
+
+        <div *ngIf="getPaymentTypeError()" class="error">
+            {{getPaymentTypeError()}}
+        </div>
     </label>
      <button type="submit">Add</button>   
 </form>
