@@ -5,4 +5,8 @@ export interface MonthlySummary {
     totalAmount: number;
     paymentCount: number;
     allPaymentsInMonth: Payment[];
+
+    dept: number;
+    overpay: number;
+    status: string;
 }

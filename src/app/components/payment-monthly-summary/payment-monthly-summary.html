@@ -63,7 +63,18 @@
             <td>
                 {{summary.paymentCount}}
             </td>
-            <td>{{summary.totalAmount}}</td>
+            <td>
+                {{summary.totalAmount}}
+            </td>
+            <td>
+                {{summary.status}} 
+                <div *ngIf="summary.overpay">
+                    overpay: {{summary.overpay}}
+                </div>
+                <div *ngIf="summary.dept">
+                   dept: {{summary.dept}}
+                </div>
+            </td>
         </tr>
     </tbody>
 

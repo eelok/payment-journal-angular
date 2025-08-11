@@ -25,10 +25,14 @@ export class PaymentMonthlySummary implements OnInit {
   isLoading = false;
 
   tableColumns = [
-    {property: "yearMonth", label: "Year - Month"},
-    {propery: "allPaymentsInMonth", label: "Payment"},
+    {property: "yearMonth", label: "Month"},
+    {propery: "allPaymentsInMonth", label: "Recieved Payments"},
     {property: "paymentCount", label: "Number of Payments"},
-    {property: "totalAmount", label: "Total Paid"},
+    {property: "totalAmount", label: "Paid Total"},
+    // {property: "shouldPay", label: "Should Pay"},
+    // {property: "dept", label: "Dept"},
+    // {property: "overpay", label: "Overpay"},
+    {property: "status", label: "Status"},
   ]
 
   constructor(
