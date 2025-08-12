@@ -63,7 +63,7 @@ export class PaymentMonthlySummary implements OnInit {
 
   getPaymentAmountError(): string {
     const control = this.paymentForm.get('paymentAmount');
-    if(control?.errors && control?.touched){
+    if(control?.errors && control?.touched && control?.dirty){
       if(control.errors['required']){
         return 'Payment amount is required';
       }
