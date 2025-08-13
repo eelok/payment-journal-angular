@@ -1,35 +1,37 @@
 
-<h3>Monthly Summary: </h3>
-<div *ngIf="errorMessage"
+<h3 class="section-header">Monthly Summary</h3>
+<!-- <div *ngIf="errorMessage"
      style="color: red; padding: 10px; border: 1px solid red;">
     <p>Error: {{errorMessage}}</p>
-</div>
-
+</div> -->
+<!-- 
 <div *ngIf="isLoading">
   <p>Loading data...</p>
-</div>
+</div> -->
 
-<table>
-    <thead>
+<table class="payment-summary">
+    <thead class="payment-summary__header">
         <tr>
-            <th  *ngFor="let column of tableColumns">{{column.label}}</th>
+            <th class="table-header"  *ngFor="let column of tableColumns">{{column.label}}</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="payment-summary__body">
         <tr *ngFor="let summary of monthlySummaries">
-            <td>{{summary.yearMonth}}</td>
-            <td>
-                <div *ngFor="let payment of summary.allPaymentsInMonth">
+            <td class="body-text">{{summary.yearMonth}}</td>
+            <td class="body-text">
+                <div   
+                        *ngFor="let payment of summary.allPaymentsInMonth"
+                >
                         {{payment.amount}}
                 </div>
             </td>
-            <td>
+            <td class="body-text">
                 {{summary.paymentCount}}
             </td>
-            <td>
+            <td class="body-text">
                 {{summary.totalAmount}}
             </td>
-            <td>
+            <td class="body-text">
                 {{summary.status}} 
                 <div *ngIf="summary.overpay">
                     overpay: {{summary.overpay}}

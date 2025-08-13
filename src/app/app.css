@@ -1,16 +1,8 @@
-.container {
-  max-width: 1200px;
+.main-container{
   margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-h1 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-p {
-  color: #666;
-  margin-bottom: 30px;
+  padding: 0;
+  max-width: 1200px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

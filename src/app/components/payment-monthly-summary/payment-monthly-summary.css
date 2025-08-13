@@ -1,8 +1,13 @@
-.error {
-  padding: 10px;
-  color: red;
+
+
+
+.payment-summary{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radious);
 }
 
-table, th, td {
-  border: 1px solid;
+.payment-summary__header {
+  background-color: var(--color-light-light-gray);
 }
