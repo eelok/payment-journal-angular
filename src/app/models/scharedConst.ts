@@ -1,2 +1,2 @@
-export const paymentType = [ "REGULAR", "EXPENSE",  "DEPOSIT"]
-export const status = [ "COMPLETED", "PARTIAL", "DEFICIT",]
+export const paymentType = ['REGULAR', 'EXPENSE', 'DEPOSIT'];
+export const status = ['COMPLETE', 'PARTIAL', 'DEFICIT'];

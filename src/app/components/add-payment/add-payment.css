@@ -1,0 +1,51 @@
+
+
+.add-payment-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 20px 20px;
+}
+.add-payment-card label {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+.add-payment-card input,
+.add-payment-card select {
+    font-family: inherit;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+}
+.add-payment-card input:focus,
+.add-payment-card select:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(227, 242, 253, 0.8);
+}
+
+.add-payment-card button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap; 
+    align-self: center;
+    margin-top: 32px
+}
+
+.add-payment-card button:hover {
+    background-color: #1565c0;
+}
+

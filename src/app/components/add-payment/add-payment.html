@@ -1,7 +1,7 @@
 <h3 class="section-header">Add New Payment</h3>
-<form [formGroup]="paymentForm" (ngSubmit)="addPayment()">
-    <label for="paymentAmount">
-        Payment Amount:
+<form class="add-payment-card" [formGroup]="paymentForm" (ngSubmit)="addPayment()">
+    <label class="table-header" for="paymentAmount">
+        Payment Amount
         <input 
             id="paymentAmount" 
             type="number" 
@@ -12,8 +12,8 @@
     <div *ngIf="getPaymentAmountError()" class="error">
         {{getPaymentAmountError()}}
     </div>
-    <label for="paymentType">
-        Payment Type:
+    <label class="table-header" for="paymentType">
+        Payment Type
         <select
             id="paymentType"
             name="paymentType"   
@@ -32,5 +32,5 @@
             {{getPaymentTypeError()}}
         </div>
     </label>
-     <button type="submit">Add</button>   
+         <button type="submit">Add Payment</button>  
 </form>

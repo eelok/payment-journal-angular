@@ -17,27 +17,31 @@
     </thead>
     <tbody class="payment-summary__body">
         <tr *ngFor="let summary of monthlySummaries">
-            <td class="body-text">{{summary.yearMonth}}</td>
-            <td class="body-text">
-                <div   
+            <td class="body-text month">{{summary.yearMonth}}</td>
+            <td class="body-text payments-row">
+                <div  class="payment-bubble"   
                         *ngFor="let payment of summary.allPaymentsInMonth"
                 >
                         {{payment.amount}}
                 </div>
             </td>
             <td class="body-text">
-                {{summary.paymentCount}}
+                <span class="count-badge">{{summary.paymentCount}}</span>
             </td>
-            <td class="body-text">
-                {{summary.totalAmount}}
+            <td class="body-text total-amount">
+                <span 
+                    [class]="summary.totalAmount >= 52000 ? 'total-complete' : 'total-deficit'"
+                >
+                    {{summary.totalAmount}}
+                </span>    
             </td>
-            <td class="body-text">
+            <td class="status-text body-text">
                 {{summary.status}} 
-                <div *ngIf="summary.overpay">
-                    overpay: {{summary.overpay}}
+                <div class="overpay" *ngIf="summary.overpay">
+                    overpay ({{summary.overpay}})
                 </div>
                 <div *ngIf="summary.dept">
-                   dept: {{summary.dept}}
+                   dept ({{summary.dept}})
                 </div>
             </td>
         </tr>
